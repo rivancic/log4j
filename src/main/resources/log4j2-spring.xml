@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss:SSS} --- [%thread] %-5level %logger{2}:%L - %msg%n"/>
+        </Console>
+
+        <RollingFile name="CATALINA-FILE" fileName="${spring:commission.base.path1}/logs/catalina.log"
+                     filePattern="${spring:commission.base.path1}/logs/archived/catalina_%d{yyyy-MM-dd}.log.gz">
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{20}:%L - %msg%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="1 KB" />
+            </Policies>
+        </RollingFile>
+
+    </Appenders>
+
+    <Loggers>
+        <root level="debug">
+            <appender-ref ref="CATALINA-FILE"/>
+            <appender-ref ref="console"/>
+        </root>
+    </Loggers>
+</configuration>

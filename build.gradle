@@ -1,0 +1,51 @@
+plugins {
+  id 'org.springframework.boot' version '2.5.0'
+  id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+  id 'java'
+}
+
+group = 'com.rivancic'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+  mavenCentral()
+  maven { url 'https://repo.spring.io/milestone' }
+  maven { url 'https://repo.spring.io/snapshot' }
+}
+
+ext {
+  log4j2version = '2.14.1'
+}
+
+
+dependencyManagement {
+  imports {
+     mavenBom 'org.springframework.boot:spring-boot-dependencies:2.3.11.RELEASE'
+  }
+}
+
+dependencies {
+
+  compileOnly 'org.projectlombok:lombok:1.18.18'
+  annotationProcessor 'org.projectlombok:lombok:1.18.18'
+
+  implementation 'org.springframework.boot:spring-boot-starter'
+  implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+
+  implementation "org.apache.logging.log4j:log4j-spring-cloud-config-client:${log4j2version}"
+  implementation "org.apache.logging.log4j:log4j-api:${log4j2version}"
+  implementation "org.apache.logging.log4j:log4j-core:${log4j2version}"
+}
+
+test {
+  useJUnitPlatform()
+}
+
+configurations {
+  all {
+   exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+    exclude group: "ch.qos.logback", module: "logback-classic"
+    exclude group: "org.springframework.cloud", module: "spring-cloud-bus"
+  }
+}
