@@ -15,14 +15,7 @@ repositories {
 }
 
 ext {
-  log4j2version = '2.14.1'
-}
-
-
-dependencyManagement {
-  imports {
-     mavenBom 'org.springframework.boot:spring-boot-dependencies:2.3.11.RELEASE'
-  }
+  log4j2version = '2.14.1' // In case you require higher different dependency that specified in Spring Boot BOM.
 }
 
 dependencies {
@@ -30,12 +23,20 @@ dependencies {
   compileOnly 'org.projectlombok:lombok:1.18.18'
   annotationProcessor 'org.projectlombok:lombok:1.18.18'
 
+  // Spring Boot dependency
   implementation 'org.springframework.boot:spring-boot-starter'
-  implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-  implementation "org.apache.logging.log4j:log4j-spring-cloud-config-client:${log4j2version}"
+  // Logging dependencies
+
+  // Base Log4j 2
   implementation "org.apache.logging.log4j:log4j-api:${log4j2version}"
-  implementation "org.apache.logging.log4j:log4j-core:${log4j2version}"
+
+  // Will resolve spring properties
+  implementation "org.apache.logging.log4j:log4j-spring-boot:${log4j2version}"
+
+  // Log4j 2 to Slf4j binder
+  implementation "org.apache.logging.log4j:log4j-slf4j-impl:${log4j2version}"
 }
 
 test {

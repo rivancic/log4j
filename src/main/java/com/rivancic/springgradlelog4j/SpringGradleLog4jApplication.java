@@ -10,20 +10,21 @@ import javax.annotation.PostConstruct;
 @SpringBootApplication
 public class SpringGradleLog4jApplication {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SpringGradleLog4jApplication.class.getName());
+
     public static void main(String[] args) {
         SpringApplication.run(SpringGradleLog4jApplication.class, args);
     }
 
-    private static Logger logger = LoggerFactory.getLogger(SpringGradleLog4jApplication.class.getName());
-
+    /**
+     * Test logging functionality. Should fill in rotation log file with multiple lines debug logging lines.
+     */
     @PostConstruct
-    public void postConstruct() {
+    public void logDebugLines() {
         try {
-            for(int i = 0; i < 200; i++) {
-                logger.debug("This is the " + i + " time I say 'Hello World'.");
-
-                    Thread.sleep(100);
-
+            for (int i = 0; i < 200; i++) {
+                LOGGER.debug("This is the {} time I say 'Hello World'.", i);
+                Thread.sleep(100);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();

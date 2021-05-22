@@ -9,5 +9,4 @@ class SpringGradleLog4jApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }
